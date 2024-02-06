@@ -14,6 +14,7 @@ import 'package:aio_mobile/widgets/bottom_sheet_menu.dart';
 import 'package:aio_mobile/widgets/bottom_sheet_settings.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../functions/calculator_func.dart';
@@ -150,14 +151,19 @@ class _HomeScreenState extends State<HomeScreen> {
           });
 
           ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdShowedFullScreenContent: (ad) {},
+            onAdShowedFullScreenContent: (ad) {
+              SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+              print('%% ${'onAdShowedFullScreenContent'}');
+            },
             onAdImpression: (ad) {},
             onAdFailedToShowFullScreenContent: (ad, err) {
+              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
               ad.dispose();
               _interstitialAd?.dispose();
               loadAd();
             },
             onAdDismissedFullScreenContent: (ad) {
+              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
               ad.dispose();
               _interstitialAd?.dispose();
               loadAd();
