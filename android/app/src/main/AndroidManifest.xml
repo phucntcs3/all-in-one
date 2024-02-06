@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.aio_mobile">
+    package="com.phuc.aio">
    <application
         android:label="aio_mobile"
         android:name="${applicationName}"
@@ -30,5 +30,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- Admob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5953802733490905~8124350649"/>
     </application>
 </manifest>

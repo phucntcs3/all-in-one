@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "823242111710",
+    "project_id": "aio-app-59d6c",
+    "storage_bucket": "aio-app-59d6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823242111710:android:19cc7fdd00490148c4e04f",
+        "android_client_info": {
+          "package_name": "com.phuc.aio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823242111710-2cvvrl1gbvi364kk3pr95ve30n0tndqi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.phuc.aio",
+            "certificate_hash": "96e6697e797b36bb0530bd776559c00fcc594bb3"
+          }
+        },
+        {
+          "client_id": "823242111710-cnqd6jt4dibaki1tag3hmmef25sf2nfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK6L9ENUDTOJ7KlkYo5BIY31Ad7FM9C04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823242111710-cnqd6jt4dibaki1tag3hmmef25sf2nfa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "823242111710-lcsa41mcoe5rq0uhd9mh0it7582ndptb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.phuc.aio"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

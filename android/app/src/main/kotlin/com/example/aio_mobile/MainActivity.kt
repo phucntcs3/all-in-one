@@ -1,4 +1,4 @@
-package com.example.aio_mobile
+package com.phuc.aio
 
 import io.flutter.embedding.android.FlutterActivity
 
