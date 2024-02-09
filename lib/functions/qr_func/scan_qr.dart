@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class QrFunc extends StatefulWidget {
-  const QrFunc({
+import '../../utils/display.dart';
+
+class ScanQr extends StatefulWidget {
+  const ScanQr({
     super.key,
     required this.item,
   });
@@ -15,10 +17,10 @@ class QrFunc extends StatefulWidget {
   final FunctionModel item;
 
   @override
-  State<QrFunc> createState() => _QrFuncState();
+  State<ScanQr> createState() => _ScanQrState();
 }
 
-class _QrFuncState extends State<QrFunc> {
+class _ScanQrState extends State<ScanQr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +32,8 @@ class _QrFuncState extends State<QrFunc> {
               Header(item: widget.item),
               Flexible(
                 fit: FlexFit.tight,
-                // child: Container(),
                 child: QRView(
+                  formatsAllowed: const [BarcodeFormat.qrcode],
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
                 ),
@@ -79,9 +81,9 @@ class _QrFuncState extends State<QrFunc> {
     this.controller = controller;
 
     controller.scannedDataStream.listen((scanData) async {
-      print('%%scanData ${scanData.code}');
-
       if (scanData.code?.isNotEmpty == true) {
+        DisplayUtils.showLoading();
+
         controller.stopCamera();
 
         setState(() {
@@ -91,6 +93,8 @@ class _QrFuncState extends State<QrFunc> {
         Uri? uri = Uri.tryParse(scanData.code ?? '');
 
         bool canLaunch = uri == null ? false : await canLaunchUrl(uri);
+
+        DisplayUtils.hideLoading();
 
         await CoreRouter.showBottomSheet(
           builder: (context) {
@@ -119,16 +123,13 @@ class _QrFuncState extends State<QrFunc> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: canLaunch ? Colors.blueAccent : Colors.black,
+                        decoration: canLaunch
+                            ? TextDecoration.underline
+                            : TextDecoration.none,
                       ),
                     ),
                   ),
                   const VSpace(),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     CoreRouter.pop();
-                  //   },
-                  //   child: const Text('Scan again'),
-                  // ),
                   ElevatedButton(
                     onPressed: () {
                       CoreRouter.pop();

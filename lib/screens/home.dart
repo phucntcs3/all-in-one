@@ -3,7 +3,7 @@ import 'package:aio_mobile/functions/age_func.dart';
 import 'package:aio_mobile/functions/info_func.dart';
 import 'package:aio_mobile/functions/length_func.dart';
 import 'package:aio_mobile/functions/noise_func.dart';
-import 'package:aio_mobile/functions/qr_func.dart';
+import 'package:aio_mobile/functions/qr_func/index.dart';
 import 'package:aio_mobile/functions/stopwatch_func.dart';
 import 'package:aio_mobile/functions/temperature_func.dart';
 import 'package:aio_mobile/functions/time_func.dart';

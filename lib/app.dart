@@ -1,8 +1,10 @@
+import 'package:aio_mobile/bloc/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'configs/ad_configs.dart';
 import 'router/core_router.dart';
+import 'widgets/loading.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -24,33 +26,36 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      initialRoute: '/',
-      onGenerateRoute: CoreRouter.onGenerateRoute,
-      builder: (context, child) {
-        return Stack(
-          children: [
-            // Main App
-            Column(
-              children: [
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: SizedBox(child: child),
-                ),
-                if (_bannerAd != null)
-                  SizedBox(
-                    width: _bannerAd!.size.width.toDouble(),
-                    height: _bannerAd!.size.height.toDouble(),
-                    child: AdWidget(ad: _bannerAd!),
-                  )
-              ],
-            ),
-            // Other
-          ],
-        );
-      },
+    return AppBlocProvider(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        initialRoute: '/',
+        onGenerateRoute: CoreRouter.onGenerateRoute,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              // Main App
+              Column(
+                children: [
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: SizedBox(child: child),
+                  ),
+                  if (_bannerAd != null)
+                    SizedBox(
+                      width: _bannerAd!.size.width.toDouble(),
+                      height: _bannerAd!.size.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
+                ],
+              ),
+              // Other
+              const Loading(),
+            ],
+          );
+        },
+      ),
     );
   }
 

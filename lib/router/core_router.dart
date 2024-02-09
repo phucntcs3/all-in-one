@@ -1,5 +1,7 @@
+import 'package:aio_mobile/bloc/loading/loading_bloc.dart';
 import 'package:aio_mobile/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../app.dart';
 
@@ -22,6 +24,7 @@ class CoreRouter {
 
   static Future<dynamic> showBottomSheet({
     required Widget Function(BuildContext) builder,
+    Function? whenComplete,
   }) async {
     return showModalBottomSheet(
       context: navigatorKey.currentContext!,
@@ -32,7 +35,9 @@ class CoreRouter {
       ),
       backgroundColor: Colors.white,
       builder: builder,
-    );
+    ).whenComplete(() {
+      whenComplete?.call();
+    });
   }
 
   static Route<dynamic>? onGenerateRoute(settings) {
