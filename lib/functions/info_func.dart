@@ -69,7 +69,7 @@ class _InfoFuncState extends State<InfoFunc> {
 
       capacity = '${deviceMemory?.toString() ?? ''} MB';
     } catch (e) {
-      // print('Error getting storage info: $e');
+      //
     }
   }
 

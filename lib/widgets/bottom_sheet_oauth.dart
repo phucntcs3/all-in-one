@@ -29,23 +29,6 @@ class BottomSheetOAuth extends StatelessWidget {
             title: 'Sign in with Google',
             onPressed: () async {
               try {
-                // final GoogleSignIn googleSignIn = GoogleSignIn(
-                //   serverClientId: SupabaseConfigs.webClientId,
-                // );
-
-                // final googleUser = await googleSignIn.signIn();
-                // final googleAuth = await googleUser!.authentication;
-                // final accessToken = googleAuth.accessToken;
-                // final idToken = googleAuth.idToken;
-
-                // final authResponse =
-                //     await Supabase.instance.client.auth.signInWithIdToken(
-                //   provider: Provider.google,
-                //   idToken: idToken!,
-                //   accessToken: accessToken,
-                // );
-
-                // print('%% ${authResponse.user}');
                 GoogleSignIn googleSignIn = GoogleSignIn(
                   scopes: ['email'],
                 );

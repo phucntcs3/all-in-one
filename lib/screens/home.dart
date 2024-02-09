@@ -3,6 +3,7 @@ import 'package:aio_mobile/functions/age_func.dart';
 import 'package:aio_mobile/functions/info_func.dart';
 import 'package:aio_mobile/functions/length_func.dart';
 import 'package:aio_mobile/functions/noise_func.dart';
+import 'package:aio_mobile/functions/qr_func.dart';
 import 'package:aio_mobile/functions/stopwatch_func.dart';
 import 'package:aio_mobile/functions/temperature_func.dart';
 import 'package:aio_mobile/functions/time_func.dart';
@@ -153,7 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ad.fullScreenContentCallback = FullScreenContentCallback(
             onAdShowedFullScreenContent: (ad) {
               SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-              print('%% ${'onAdShowedFullScreenContent'}');
             },
             onAdImpression: (ad) {},
             onAdFailedToShowFullScreenContent: (ad, err) {
@@ -172,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         onAdFailedToLoad: (LoadAdError error) {
-          debugPrint('InterstitialAd failed to load: $error');
+          // debugPrint('InterstitialAd failed to load: $error');
         },
       ),
     );
@@ -250,6 +250,12 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'Noise meter',
       icon: 'assets/images/noise.png',
       widget: (item) => NoiseFunc(item: item),
+    ),
+    FunctionModel(
+      key: 'qr',
+      title: 'Qr code',
+      icon: 'assets/images/qr.png',
+      widget: (item) => QrFunc(item: item),
     ),
   ];
 }
