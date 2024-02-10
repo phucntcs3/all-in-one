@@ -4,6 +4,8 @@ import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../utils/debug.dart';
+
 class BottomSheetOAuth extends StatelessWidget {
   const BottomSheetOAuth({super.key});
 
@@ -35,10 +37,10 @@ class BottomSheetOAuth extends StatelessWidget {
 
                 final res = await googleSignIn.signIn();
 
-                print('%% ${res?.id}');
-                print('%% ${res?.email}');
+                DebugUtils.printDebug('%% ${res?.id}');
+                DebugUtils.printDebug('%% ${res?.email}');
               } catch (e) {
-                print('%%loi tan nat: ${e}');
+                DebugUtils.printDebug('%%loi tan nat: ${e}');
               }
             },
           ),

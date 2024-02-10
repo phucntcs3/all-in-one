@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../utils/debug.dart';
 import '../../utils/display.dart';
 
 class ScanQr extends StatefulWidget {
@@ -113,7 +114,7 @@ class _ScanQrState extends State<ScanQr> {
                                 mode: LaunchMode.externalApplication,
                               );
                             } catch (e) {
-                              print('%% ${e}');
+                              DebugUtils.printDebug('%% ${e}');
                             }
                           }
                         : null,

@@ -1,14 +1,11 @@
-import 'dart:io';
-
 import 'package:aio_mobile/models/function_model.dart';
+import 'package:aio_mobile/utils/debug.dart';
 import 'package:aio_mobile/utils/display.dart';
 import 'package:aio_mobile/widgets/header.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -124,12 +121,9 @@ class GenerateQrState extends State<GenerateQr> {
       );
 
       DisplayUtils.hideLoading();
-
-      // print('%% ${result['filePath'] + '/qr-code.jpg'}');
-
       DisplayUtils.showSnackbar(message: 'Saved');
     } catch (e) {
-      print('%% ${e}');
+      DebugUtils.printDebug('%% ${e}');
     }
   }
 
@@ -159,10 +153,10 @@ class GenerateQrState extends State<GenerateQr> {
       );
 
       if (result2.status == ShareResultStatus.success) {
-        print('Thank you for sharing the picture!');
+        DebugUtils.printDebug('Thank you for sharing the picture!');
       }
     } catch (e) {
-      print('%% ${e}');
+      DebugUtils.printDebug('%% ${e}');
     }
   }
 
