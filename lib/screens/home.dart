@@ -1,9 +1,11 @@
 import 'package:aio_mobile/configs/ad_configs.dart';
+import 'package:aio_mobile/configs/app_configs.dart';
 import 'package:aio_mobile/functions/age_func.dart';
 import 'package:aio_mobile/functions/info_func.dart';
 import 'package:aio_mobile/functions/length_func.dart';
 import 'package:aio_mobile/functions/noise_func.dart';
 import 'package:aio_mobile/functions/qr_func/index.dart';
+import 'package:aio_mobile/functions/settings_func/index.dart';
 import 'package:aio_mobile/functions/stopwatch_func.dart';
 import 'package:aio_mobile/functions/temperature_func.dart';
 import 'package:aio_mobile/functions/time_func.dart';
@@ -30,16 +32,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  InterstitialAd? _interstitialAd;
-  int count = AdConfigs.count;
-
-  @override
-  void initState() {
-    super.initState();
-    loadAd();
-    init();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,16 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     for (var item in listFunc)
                       InkWell(
                         onTap: () {
-                          count--;
-
-                          if (count <= 0) {
-                            setState(() {
-                              _interstitialAd?.show();
-                              count = AdConfigs.count;
-                            });
-                          }
-
-                          CoreRouter.push(item.widget(item));
+                          onItemPressed(item);
                         },
                         child: Column(
                           children: [
@@ -139,43 +122,67 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void init() async {}
+  InterstitialAd? _interstitialAd;
+  int count = AdConfigs.count;
 
-  void loadAd() {
-    InterstitialAd.load(
-      adUnitId: AdConfigs.getInterstitialAd(),
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          setState(() {
-            _interstitialAd = ad;
-          });
+  @override
+  void initState() {
+    super.initState();
+    loadInterstitialAd();
+  }
 
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdShowedFullScreenContent: (ad) {
-              SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-            },
-            onAdImpression: (ad) {},
-            onAdFailedToShowFullScreenContent: (ad, err) {
-              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-              ad.dispose();
-              _interstitialAd?.dispose();
-              loadAd();
-            },
-            onAdDismissedFullScreenContent: (ad) {
-              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-              ad.dispose();
-              _interstitialAd?.dispose();
-              loadAd();
-            },
-            onAdClicked: (ad) {},
-          );
-        },
-        onAdFailedToLoad: (LoadAdError error) {
-          // debugPrint('InterstitialAd failed to load: $error');
-        },
-      ),
-    );
+  void loadInterstitialAd() {
+    if (AppConfigs.enableAds) {
+      InterstitialAd.load(
+        adUnitId: AdConfigs.getInterstitialAd(),
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) {
+            setState(() {
+              _interstitialAd = ad;
+            });
+
+            ad.fullScreenContentCallback = FullScreenContentCallback(
+              onAdShowedFullScreenContent: (ad) {
+                SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+              },
+              onAdImpression: (ad) {},
+              onAdFailedToShowFullScreenContent: (ad, err) {
+                SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                ad.dispose();
+                _interstitialAd?.dispose();
+                loadInterstitialAd();
+              },
+              onAdDismissedFullScreenContent: (ad) {
+                SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                ad.dispose();
+                _interstitialAd?.dispose();
+                loadInterstitialAd();
+              },
+              onAdClicked: (ad) {},
+            );
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            // debugPrint('InterstitialAd failed to load: $error');
+          },
+        ),
+      );
+    }
+  }
+
+  void onItemPressed(FunctionModel item) {
+    if (AppConfigs.enableAds) {
+      count--;
+
+      if (count <= 0) {
+        setState(() {
+          _interstitialAd?.show();
+          count = AdConfigs.count;
+        });
+      }
+    }
+
+    CoreRouter.push(item.widget(item));
   }
 
   final listFunc = [
@@ -256,6 +263,12 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'Qr code',
       icon: 'assets/images/qr.png',
       widget: (item) => QrFunc(item: item),
+    ),
+    FunctionModel(
+      key: 'settings',
+      title: 'Settings',
+      icon: 'assets/images/settings.png',
+      widget: (item) => SettingsFunc(item: item),
     ),
   ];
 }

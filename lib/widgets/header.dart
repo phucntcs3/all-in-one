@@ -22,16 +22,17 @@ class Header extends StatelessWidget {
         children: [
           Row(
             children: [
-              Hero(
-                tag: item.key,
-                child: SizedBox.square(
-                  dimension: 50,
-                  child: Image.asset(
-                    item.icon,
-                    fit: BoxFit.contain,
+              if (item.icon != '')
+                Hero(
+                  tag: item.key,
+                  child: SizedBox.square(
+                    dimension: 50,
+                    child: Image.asset(
+                      item.icon,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
               const SizedBox(width: 15),
               Text(
                 item.title,

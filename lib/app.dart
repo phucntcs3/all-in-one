@@ -1,4 +1,5 @@
 import 'package:aio_mobile/bloc/bloc_provider.dart';
+import 'package:aio_mobile/configs/app_configs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -60,16 +61,18 @@ class _AppState extends State<App> {
   }
 
   void loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: AdConfigs.getBannerAd(),
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {},
-        onAdFailedToLoad: (ad, err) {
-          ad.dispose();
-        },
-      ),
-    )..load();
+    if (AppConfigs.enableAds) {
+      _bannerAd = BannerAd(
+        adUnitId: AdConfigs.getBannerAd(),
+        request: const AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {},
+          onAdFailedToLoad: (ad, err) {
+            ad.dispose();
+          },
+        ),
+      )..load();
+    }
   }
 }
