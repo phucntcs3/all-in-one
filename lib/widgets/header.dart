@@ -8,18 +8,33 @@ class Header extends StatelessWidget {
     super.key,
     required this.item,
     this.isDarkMode = false,
+    this.isChildScreen = false,
   });
 
   final FunctionModel item;
   final bool isDarkMode;
+  final bool isChildScreen;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: isChildScreen
+            ? MainAxisAlignment.start
+            : MainAxisAlignment.spaceBetween,
         children: [
+          if (isChildScreen)
+            IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                CoreRouter.pop();
+              },
+              icon: Icon(
+                Icons.chevron_left,
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
           Row(
             children: [
               if (item.icon != '')
@@ -33,7 +48,7 @@ class Header extends StatelessWidget {
                     ),
                   ),
                 ),
-              const SizedBox(width: 15),
+              if (item.icon != '') const SizedBox(width: 15),
               Text(
                 item.title,
                 style: TextStyle(
@@ -44,15 +59,16 @@ class Header extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(
-            onPressed: () {
-              CoreRouter.pop();
-            },
-            icon: Icon(
-              Icons.close,
-              color: isDarkMode ? Colors.white : Colors.black,
+          if (!isChildScreen)
+            IconButton(
+              onPressed: () {
+                CoreRouter.pop();
+              },
+              icon: Icon(
+                Icons.close,
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
             ),
-          ),
         ],
       ),
     );

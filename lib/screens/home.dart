@@ -5,6 +5,7 @@ import 'package:aio_mobile/functions/info_func.dart';
 import 'package:aio_mobile/functions/length_func.dart';
 import 'package:aio_mobile/functions/noise_func.dart';
 import 'package:aio_mobile/functions/qr_func/index.dart';
+import 'package:aio_mobile/functions/reminder_func/index.dart';
 import 'package:aio_mobile/functions/settings_func/index.dart';
 import 'package:aio_mobile/functions/stopwatch_func.dart';
 import 'package:aio_mobile/functions/temperature_func.dart';
@@ -187,6 +188,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final listFunc = [
     FunctionModel(
+      key: 'qr',
+      title: 'Qr code',
+      icon: 'assets/images/qr.png',
+      widget: (item) => QrFunc(item: item),
+    ),
+    FunctionModel(
+      key: 'settings',
+      title: 'Settings',
+      icon: 'assets/images/settings.png',
+      widget: (item) => SettingsFunc(item: item),
+    ),
+    FunctionModel(
+      key: 'reminder',
+      title: 'Reminder',
+      icon: 'assets/images/reminder.png',
+      widget: (item) => ReminderFunc(item: item),
+    ),
+    FunctionModel(
+      key: 'stopwatch',
+      title: 'Stop watch',
+      icon: 'assets/images/stopwatch.png',
+      widget: (item) => StopWatchFunc(item: item),
+    ),
+    FunctionModel(
       key: 'cake',
       title: 'Age',
       icon: 'assets/images/cake.png',
@@ -247,28 +272,10 @@ class _HomeScreenState extends State<HomeScreen> {
       widget: (item) => CalculatorFunc(item: item),
     ),
     FunctionModel(
-      key: 'stopwatch',
-      title: 'Stop watch',
-      icon: 'assets/images/stopwatch.png',
-      widget: (item) => StopWatchFunc(item: item),
-    ),
-    FunctionModel(
       key: 'noise',
       title: 'Noise meter',
       icon: 'assets/images/noise.png',
       widget: (item) => NoiseFunc(item: item),
-    ),
-    FunctionModel(
-      key: 'qr',
-      title: 'Qr code',
-      icon: 'assets/images/qr.png',
-      widget: (item) => QrFunc(item: item),
-    ),
-    FunctionModel(
-      key: 'settings',
-      title: 'Settings',
-      icon: 'assets/images/settings.png',
-      widget: (item) => SettingsFunc(item: item),
     ),
   ];
 }

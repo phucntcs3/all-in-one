@@ -26,7 +26,10 @@ class WakeLockState extends State<WakeLock> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              Header(item: widget.item),
+              Header(
+                item: widget.item,
+                isChildScreen: true,
+              ),
               Body(
                 children: [
                   const VSpace(space: 20),
