@@ -109,9 +109,10 @@ class ReminderFuncState extends State<ReminderFunc> {
   }
 
   void onItemPressed(ReminderData? item) async {
-    box?.close();
-
-    final res = await CoreRouter.push(AddReminder(item: item));
+    final res = await CoreRouter.push(AddReminder(
+      item: item,
+      box: box,
+    ));
 
     if (res == true) {
       getListReminder();

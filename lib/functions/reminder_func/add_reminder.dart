@@ -10,7 +10,6 @@ import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../constants/app_color.dart';
 import '../../router/core_router.dart';
@@ -20,9 +19,11 @@ class AddReminder extends StatefulWidget {
   const AddReminder({
     super.key,
     this.item,
+    required this.box,
   });
 
   final ReminderData? item;
+  final Box? box;
 
   @override
   State<AddReminder> createState() => _AddReminderState();
@@ -99,6 +100,8 @@ class _AddReminderState extends State<AddReminder> {
       ),
     );
   }
+
+  Box? get box => widget.box;
 
   ReminderData? get item => widget.item;
   bool get isEdit => widget.item != null;
@@ -231,11 +234,9 @@ class _AddReminderState extends State<AddReminder> {
 
       CoreRouter.pop(true);
     } catch (e) {
-      print('%%ERROR: ${e}');
+      DebugUtils.printDebug('%%ERROR: $e');
     }
   }
-
-  Box? box;
 
   @override
   void initState() {
@@ -245,8 +246,6 @@ class _AddReminderState extends State<AddReminder> {
 
   void init() async {
     DisplayUtils.showLoading();
-
-    box = await Hive.openBox('reminder');
 
     if (isEdit) {
       if (item?.title.isNotEmpty == true) {
@@ -279,7 +278,6 @@ class _AddReminderState extends State<AddReminder> {
 
   @override
   void dispose() {
-    box?.close();
     super.dispose();
   }
 }
