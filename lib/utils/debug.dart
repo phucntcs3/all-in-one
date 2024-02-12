@@ -21,7 +21,7 @@ class DebugUtils {
             .first
             .split(' ')
             .join(' at line ');
-        debugPrint('$result\t\t(lib/$filePath)');
+        debugPrint('%% $result\t\t(lib/$filePath)');
       } catch (e) {
         debugPrint('CANNOT PRINT ${json.runtimeType} type');
       }

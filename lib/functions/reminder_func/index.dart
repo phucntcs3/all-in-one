@@ -1,9 +1,14 @@
 import 'package:aio_mobile/constants/app_color.dart';
+import 'package:aio_mobile/extensions/date_ext.dart';
+import 'package:aio_mobile/extensions/duration_ext.dart';
 import 'package:aio_mobile/functions/reminder_func/add_reminder.dart';
+import 'package:aio_mobile/functions/reminder_func/reminder_data_model.dart';
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:aio_mobile/router/core_router.dart';
+import 'package:aio_mobile/utils/debug.dart';
 import 'package:aio_mobile/widgets/body.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../../widgets/header.dart';
 import '../../widgets/v_space.dart';
 
@@ -31,58 +36,22 @@ class ReminderFuncState extends State<ReminderFunc> {
               Header(item: widget.item),
               Body(
                 children: [
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 30),
-                  //   child: SizedBox.square(
-                  //     dimension: 220,
-                  //     child: Image.asset(
-                  //       'assets/images/empty-box.png',
-                  //       fit: BoxFit.contain,
-                  //     ),
-                  //   ),
-                  // ),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Title'),
-                              const VSpace(space: 5),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.timer,
-                                    color: AppColor.iconGray,
-                                  ),
-                                  Text('10/8/2000 20:20'),
-                                ],
-                              ),
-                              const VSpace(space: 5),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.repeat,
-                                    color: AppColor.iconGray,
-                                  ),
-                                  Text('2 times (every 1 hour)'),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Icon(
-                            Icons.notifications,
-                            color: AppColor.iconGray,
-                          ),
-                        ],
+                  if (listReminder.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: SizedBox.square(
+                        dimension: 220,
+                        child: Image.asset(
+                          'assets/images/empty-box.png',
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
-                  ),
+                  if (listReminder.isNotEmpty)
+                    for (var item in listReminder)
+                      _buildItem(item, () {
+                        onItemPressed(item);
+                      }),
                 ],
               ),
             ],
@@ -90,19 +59,110 @@ class ReminderFuncState extends State<ReminderFunc> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          CoreRouter.push(const AddReminder());
+        onPressed: () async {
+          onItemPressed(null);
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  var listReminder = [];
-  /**
-   * title
-   * time -> dd/MMMM/yyyy hh:mm
-   * repeat -> 2 times
-   * repeat interval -> every 1 hour
-   */
+  List<ReminderData> listReminder = [];
+
+  Box? box;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() async {
+    try {
+      getListReminder();
+    } catch (e) {
+      DebugUtils.printDebug(e);
+    }
+  }
+
+  @override
+  void dispose() {
+    box?.close();
+    super.dispose();
+  }
+
+  void getListReminder() async {
+    box = await Hive.openBox('reminder');
+
+    try {
+      var res = box?.toMap();
+
+      var list =
+          res?.entries.map((e) => ReminderData.fromJson(e.value)).toList();
+
+      setState(() {
+        listReminder = list ?? [];
+      });
+    } catch (e) {
+      DebugUtils.printDebug(e);
+    }
+  }
+
+  void onItemPressed(ReminderData? item) async {
+    box?.close();
+
+    final res = await CoreRouter.push(AddReminder(item: item));
+
+    if (res == true) {
+      getListReminder();
+    }
+  }
+}
+
+Widget _buildItem(ReminderData item, Function()? onItemPressed) {
+  return InkWell(
+    onTap: onItemPressed,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(item.title),
+              const VSpace(space: 5),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.timer,
+                    color: AppColor.iconGray,
+                  ),
+                  const SizedBox(width: 5),
+                  Text('${item.date.toddMMyyyy()} ${item.time.toHHmm()}'),
+                ],
+              ),
+              const VSpace(space: 5),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.repeat,
+                    color: AppColor.iconGray,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                      '${item.repeatInterval} times (every ${item.repeatTime.toHHmmssLocale()})'),
+                ],
+              ),
+            ],
+          ),
+          const Icon(
+            Icons.notifications,
+            color: AppColor.iconGray,
+          ),
+        ],
+      ),
+    ),
+  );
 }

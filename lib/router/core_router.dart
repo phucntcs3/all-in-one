@@ -14,8 +14,8 @@ class CoreRouter {
     );
   }
 
-  static void pushReplacement(Widget route) {
-    Navigator.of(navigatorKey.currentContext!).pushReplacement(
+  static Future<dynamic> pushReplacement(Widget route) {
+    return Navigator.of(navigatorKey.currentContext!).pushReplacement(
       MaterialPageRoute(builder: (context) => route),
     );
   }
