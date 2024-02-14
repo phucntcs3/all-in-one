@@ -7,6 +7,7 @@ import 'package:aio_mobile/utils/display.dart';
 import 'package:aio_mobile/widgets/bottom_sheet_repeat_interval_picker.dart';
 import 'package:aio_mobile/widgets/bottom_sheet_time_picker.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -20,10 +21,12 @@ class AddReminder extends StatefulWidget {
     super.key,
     this.item,
     required this.box,
+    this.index = 0,
   });
 
   final ReminderData? item;
   final Box? box;
+  final int index;
 
   @override
   State<AddReminder> createState() => _AddReminderState();
@@ -82,18 +85,18 @@ class _AddReminderState extends State<AddReminder> {
                 leading: const Icon(Icons.timer),
                 onTap: onTimePressed,
               ),
-              ListTile(
-                title: const Text('Repeat'),
-                subtitle: Text('Every ${repeatTime.toHHmmssLocale()}'),
-                leading: const Icon(Icons.repeat),
-                onTap: onRepeatTimePressed,
-              ),
-              ListTile(
-                title: const Text('Repeat interval'),
-                subtitle: Text(repeatCount.toString()),
-                leading: const Icon(Icons.repeat_one_rounded),
-                onTap: onRepeatIntervalPressed,
-              ),
+              // ListTile(
+              //   title: const Text('Repeat'),
+              //   subtitle: Text('Every ${repeatTime.toHHmmssLocale()}'),
+              //   leading: const Icon(Icons.repeat),
+              //   onTap: onRepeatTimePressed,
+              // ),
+              // ListTile(
+              //   title: const Text('Repeat interval'),
+              //   subtitle: Text(repeatCount.toString()),
+              //   leading: const Icon(Icons.repeat_one_rounded),
+              //   onTap: onRepeatIntervalPressed,
+              // ),
             ],
           ),
         ),
@@ -101,6 +104,7 @@ class _AddReminderState extends State<AddReminder> {
     );
   }
 
+  int get index => item?.index ?? widget.index;
   Box? get box => widget.box;
 
   ReminderData? get item => widget.item;
@@ -202,6 +206,8 @@ class _AddReminderState extends State<AddReminder> {
 
       await box?.delete(item?.id);
 
+      await AwesomeNotifications().cancel(index);
+
       DisplayUtils.hideLoading();
 
       CoreRouter.pop(true);
@@ -222,11 +228,36 @@ class _AddReminderState extends State<AddReminder> {
         time: currentTime,
         repeatTime: repeatTime,
         repeatInterval: repeatCount,
+        createdAt: DateTime.now(),
+        index: index,
       );
 
       DisplayUtils.showLoading();
 
       await box?.put(id, submitData.toJson());
+
+      await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: index,
+          channelKey: 'aio_channel',
+          title: title,
+          body: description,
+          notificationLayout: NotificationLayout.Default,
+          wakeUpScreen: true,
+        ),
+        schedule: NotificationCalendar.fromDate(
+          date: DateTime(
+            currentDate.year,
+            currentDate.month,
+            currentDate.day,
+            currentTime.inHours,
+            currentTime.inMinutes % 60,
+            0,
+          ),
+          allowWhileIdle: true,
+          preciseAlarm: true,
+        ),
+      );
 
       DisplayUtils.showSnackbar(message: 'Add reminder successfully');
 
@@ -235,6 +266,12 @@ class _AddReminderState extends State<AddReminder> {
       CoreRouter.pop(true);
     } catch (e) {
       DebugUtils.printDebug('%%ERROR: $e');
+    }
+  }
+
+  void requestPermission() async {
+    try {} catch (e) {
+      DebugUtils.printDebug(e);
     }
   }
 

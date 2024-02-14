@@ -8,6 +8,8 @@ class ReminderData {
   final Duration repeatTime;
   final int repeatInterval;
   final String id;
+  final int index;
+  final DateTime createdAt;
 
   ReminderData({
     required this.title,
@@ -17,6 +19,8 @@ class ReminderData {
     required this.repeatTime,
     required this.repeatInterval,
     required this.id,
+    required this.index,
+    required this.createdAt,
   });
 
   Map<String, dynamic> toJson() {
@@ -28,6 +32,8 @@ class ReminderData {
       'time': time.toString(),
       'repeatTime': repeatTime.toString(),
       'repeatInterval': repeatInterval,
+      'index': index,
+      'createdAt': createdAt.toString(),
     };
   }
 
@@ -40,6 +46,8 @@ class ReminderData {
       time: json['time'].toString().toDurationHHmmss(),
       repeatTime: json['repeatTime'].toString().toDurationHHmmss(),
       repeatInterval: json['repeatInterval'],
+      index: json['index'],
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 }

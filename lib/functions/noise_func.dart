@@ -93,11 +93,11 @@ class _NoiseFuncState extends State<NoiseFunc> {
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: Text(
-                          'Noise: ${_latestReading?.meanDecibel.toStringAsFixed(2)} dB',
+                          'Noise: ${_latestReading?.meanDecibel.toStringAsFixed(2) ?? 0} dB',
                         ),
                       ),
                       Text(
-                        'Max: ${_latestReading?.maxDecibel.toStringAsFixed(2)} dB',
+                        'Max: ${_latestReading?.maxDecibel.toStringAsFixed(2) ?? 0} dB',
                       )
                     ],
                   ),

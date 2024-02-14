@@ -112,6 +112,7 @@ class ReminderFuncState extends State<ReminderFunc> {
     final res = await CoreRouter.push(AddReminder(
       item: item,
       box: box,
+      index: listReminder.length,
     ));
 
     if (res == true) {
@@ -144,18 +145,18 @@ Widget _buildItem(ReminderData item, Function()? onItemPressed) {
                   Text('${item.date.toddMMyyyy()} ${item.time.toHHmm()}'),
                 ],
               ),
-              const VSpace(space: 5),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.repeat,
-                    color: AppColor.iconGray,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                      '${item.repeatInterval} times (every ${item.repeatTime.toHHmmssLocale()})'),
-                ],
-              ),
+              // const VSpace(space: 5),
+              // Row(
+              //   children: [
+              //     const Icon(
+              //       Icons.repeat,
+              //       color: AppColor.iconGray,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     Text(
+              //         '${item.repeatInterval} times (every ${item.repeatTime.toHHmmssLocale()})'),
+              //   ],
+              // ),
             ],
           ),
           const Icon(
