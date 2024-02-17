@@ -31,14 +31,14 @@ class BottomSheetOAuth extends StatelessWidget {
             title: 'Sign in with Google',
             onPressed: () async {
               try {
-                GoogleSignIn googleSignIn = GoogleSignIn(
-                  scopes: ['email'],
-                );
+                // GoogleSignIn googleSignIn = GoogleSignIn(
+                //   scopes: ['email'],
+                // );
 
-                final res = await googleSignIn.signIn();
+                // final res = await googleSignIn.signIn();
 
-                DebugUtils.printDebug('%% ${res?.id}');
-                DebugUtils.printDebug('%% ${res?.email}');
+                // DebugUtils.printDebug('%% ${res?.id}');
+                // DebugUtils.printDebug('%% ${res?.email}');
               } catch (e) {
                 DebugUtils.printDebug('%%loi tan nat: ${e}');
               }

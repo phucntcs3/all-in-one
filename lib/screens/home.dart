@@ -41,15 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              TextField(
-                onChanged: (value) {},
-                decoration: const InputDecoration(
-                  hintText: 'Search...',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.zero,
-                ),
-              ),
+              // TextField(
+              //   onChanged: (value) {},
+              //   decoration: const InputDecoration(
+              //     hintText: 'Search...',
+              //     prefixIcon: Icon(Icons.search),
+              //     border: OutlineInputBorder(),
+              //     contentPadding: EdgeInsets.zero,
+              //   ),
+              // ),
               const SizedBox(height: 25),
               Flexible(
                 fit: FlexFit.tight,
@@ -91,31 +91,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      CoreRouter.showBottomSheet(
-                        builder: (context) {
-                          return const BottomSheetMenu();
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.menu),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      CoreRouter.showBottomSheet(
-                        builder: (context) {
-                          return const BottomSheetSettings();
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.settings),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     // IconButton(
+              //     //   onPressed: () {
+              //     //     CoreRouter.showBottomSheet(
+              //     //       builder: (context) {
+              //     //         return const BottomSheetMenu();
+              //     //       },
+              //     //     );
+              //     //   },
+              //     //   icon: const Icon(Icons.menu),
+              //     // ),
+              //     IconButton(
+              //       onPressed: () {
+              //         CoreRouter.showBottomSheet(
+              //           builder: (context) {
+              //             return const BottomSheetSettings();
+              //           },
+              //         );
+              //       },
+              //       icon: const Icon(Icons.settings),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),
