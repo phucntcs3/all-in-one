@@ -20,10 +20,13 @@ class AdConfigs {
       "ca-app-pub-5953802733490905/7412337534";
   static const String _androidInterstitialPro =
       "ca-app-pub-5953802733490905/8589101107";
+  static const String _iosBannerPro = "ca-app-pub-5953802733490905/9235629059";
+  static const String _iosInterstitialPro =
+      "ca-app-pub-5953802733490905/5296384040";
 
   static String getBannerAd() {
     if (Platform.isIOS) {
-      return _iosBannerTest;
+      return AppConfigs.isTest ? _iosBannerTest : _iosBannerPro;
     }
 
     return AppConfigs.isTest ? _androidBannerTest : _androidBannerPro;
@@ -31,7 +34,7 @@ class AdConfigs {
 
   static String getInterstitialAd() {
     if (Platform.isIOS) {
-      return _iosInterstitialTest;
+      return AppConfigs.isTest ? _iosInterstitialTest : _iosInterstitialPro;
     }
 
     return AppConfigs.isTest
