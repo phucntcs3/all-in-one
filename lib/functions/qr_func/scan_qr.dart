@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:aio_mobile/router/core_router.dart';
 import 'package:aio_mobile/widgets/header.dart';
@@ -81,11 +83,17 @@ class _ScanQrState extends State<ScanQr> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
 
+    DisplayUtils.hideLoading();
+
     controller.scannedDataStream.listen((scanData) async {
       if (scanData.code?.isNotEmpty == true) {
         DisplayUtils.showLoading();
 
-        controller.stopCamera();
+        if (Platform.isAndroid) {
+          controller.stopCamera();
+        } else {
+          controller.pauseCamera();
+        }
 
         setState(() {
           result = scanData.code;
@@ -146,6 +154,12 @@ class _ScanQrState extends State<ScanQr> {
         controller.resumeCamera();
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    DisplayUtils.showLoading();
   }
 
   @override

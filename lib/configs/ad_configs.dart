@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:aio_mobile/configs/app_configs.dart';
 
 class AdConfigs {
-  static const int count = 7;
+  static const int count = 4;
 
   static const String _androidBannerTest =
       'ca-app-pub-3940256099942544/6300978111';

@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
    <application
-        android:label="aio_mobile"
+        android:label="All in one"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
