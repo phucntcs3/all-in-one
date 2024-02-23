@@ -271,11 +271,11 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: 'assets/images/calculator.png',
       widget: (item) => CalculatorFunc(item: item),
     ),
-    FunctionModel(
-      key: 'noise',
-      title: 'Noise meter',
-      icon: 'assets/images/noise.png',
-      widget: (item) => NoiseFunc(item: item),
-    ),
+    // FunctionModel(
+    //   key: 'noise',
+    //   title: 'Noise meter',
+    //   icon: 'assets/images/noise.png',
+    //   widget: (item) => NoiseFunc(item: item),
+    // ),
   ];
 }

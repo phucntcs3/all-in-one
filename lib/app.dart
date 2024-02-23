@@ -69,6 +69,7 @@ class _AppState extends State<App> {
         listener: BannerAdListener(
           onAdLoaded: (ad) {},
           onAdFailedToLoad: (ad, err) {
+            print('%%onAdFailedToLoad ${err}');
             ad.dispose();
           },
         ),
