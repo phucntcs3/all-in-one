@@ -62,18 +62,24 @@ class _AppState extends State<App> {
 
   void loadBannerAd() {
     if (AppConfigs.enableAds) {
-      _bannerAd = BannerAd(
+      final bannerAd = BannerAd(
         adUnitId: AdConfigs.getBannerAd(),
         request: const AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(
-          onAdLoaded: (ad) {},
+          onAdLoaded: (ad) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          },
           onAdFailedToLoad: (ad, err) {
             print('%%onAdFailedToLoad ${err}');
             ad.dispose();
           },
         ),
-      )..load();
+      );
+
+      bannerAd.load();
     }
   }
 }
