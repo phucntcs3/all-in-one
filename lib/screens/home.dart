@@ -3,7 +3,6 @@ import 'package:aio_mobile/configs/app_configs.dart';
 import 'package:aio_mobile/functions/age_func.dart';
 import 'package:aio_mobile/functions/info_func.dart';
 import 'package:aio_mobile/functions/length_func.dart';
-import 'package:aio_mobile/functions/noise_func.dart';
 import 'package:aio_mobile/functions/qr_func/index.dart';
 import 'package:aio_mobile/functions/reminder_func/index.dart';
 import 'package:aio_mobile/functions/settings_func/index.dart';
@@ -12,10 +11,9 @@ import 'package:aio_mobile/functions/temperature_func.dart';
 import 'package:aio_mobile/functions/time_func.dart';
 import 'package:aio_mobile/functions/tip_func.dart';
 import 'package:aio_mobile/functions/volume_func.dart';
+import 'package:aio_mobile/functions/wheel_func.dart';
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:aio_mobile/router/core_router.dart';
-import 'package:aio_mobile/widgets/bottom_sheet_menu.dart';
-import 'package:aio_mobile/widgets/bottom_sheet_settings.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -188,6 +186,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final listFunc = [
     FunctionModel(
+      key: 'wheel',
+      title: 'Random',
+      icon: 'assets/images/wheel.png',
+      widget: (item) => WheelFunc(item: item),
+    ),
+    FunctionModel(
       key: 'qr',
       title: 'Qr code',
       icon: 'assets/images/qr.png',
@@ -271,11 +275,5 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: 'assets/images/calculator.png',
       widget: (item) => CalculatorFunc(item: item),
     ),
-    // FunctionModel(
-    //   key: 'noise',
-    //   title: 'Noise meter',
-    //   icon: 'assets/images/noise.png',
-    //   widget: (item) => NoiseFunc(item: item),
-    // ),
   ];
 }
