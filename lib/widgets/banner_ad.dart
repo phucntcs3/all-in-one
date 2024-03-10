@@ -15,6 +15,12 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   BannerAd? _bannerAd;
 
   @override
+  void initState() {
+    super.initState();
+    load();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _bannerAd == null
         ? Container()

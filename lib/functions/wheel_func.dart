@@ -5,6 +5,9 @@ import 'package:aio_mobile/widgets/body.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../configs/ad_configs.dart';
+import '../configs/app_configs.dart';
 import '../widgets/header.dart';
 import '../widgets/v_space.dart';
 
@@ -12,9 +15,11 @@ class WheelFunc extends StatefulWidget {
   const WheelFunc({
     super.key,
     required this.item,
+    this.interstitialAd,
   });
 
   final FunctionModel item;
+  final InterstitialAd? interstitialAd;
 
   @override
   State<WheelFunc> createState() => _WheelFuncState();
@@ -31,6 +36,7 @@ class _WheelFuncState extends State<WheelFunc> {
   List<FortuneItem> items = [];
   String? errorText;
   List<String> names = [];
+  int count = AdConfigs.count;
 
   void onFinish() {
     setState(() {
@@ -181,6 +187,17 @@ class _WheelFuncState extends State<WheelFunc> {
             onTap: pressed
                 ? null
                 : () {
+                    if (AppConfigs.enableAds) {
+                      count--;
+
+                      if (count <= 0) {
+                        setState(() {
+                          widget.interstitialAd?.show();
+                          count = AdConfigs.count;
+                        });
+                      }
+                    }
+
                     setState(() {
                       pressed = true;
                     });

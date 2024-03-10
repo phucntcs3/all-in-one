@@ -34,89 +34,130 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              // TextField(
-              //   onChanged: (value) {},
-              //   decoration: const InputDecoration(
-              //     hintText: 'Search...',
-              //     prefixIcon: Icon(Icons.search),
-              //     border: OutlineInputBorder(),
-              //     contentPadding: EdgeInsets.zero,
-              //   ),
-              // ),
-              const SizedBox(height: 25),
-              Flexible(
-                fit: FlexFit.tight,
-                child: GridView.count(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  children: [
-                    for (var item in listFunc)
-                      InkWell(
-                        onTap: () {
-                          onItemPressed(item);
-                        },
-                        child: Column(
-                          children: [
-                            Flexible(
-                              child: Hero(
-                                tag: item.key,
-                                child: Image.asset(
-                                  item.icon,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            const VSpace(space: 6),
-                            SizedBox(
-                              height: 34,
-                              child: Text(
-                                item.title,
-                                maxLines: 2,
-                                textScaleFactor: 0.9,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                  ],
-                ),
-              ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     // IconButton(
-              //     //   onPressed: () {
-              //     //     CoreRouter.showBottomSheet(
-              //     //       builder: (context) {
-              //     //         return const BottomSheetMenu();
-              //     //       },
-              //     //     );
-              //     //   },
-              //     //   icon: const Icon(Icons.menu),
-              //     // ),
-              //     IconButton(
-              //       onPressed: () {
-              //         CoreRouter.showBottomSheet(
-              //           builder: (context) {
-              //             return const BottomSheetSettings();
-              //           },
-              //         );
-              //       },
-              //       icon: const Icon(Icons.settings),
-              //     ),
-              //   ],
-              // ),
-            ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/moon.png',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
+          SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  // TextField(
+                  //   onChanged: (value) {},
+                  //   decoration: const InputDecoration(
+                  //     hintText: 'Search...',
+                  //     prefixIcon: Icon(Icons.search),
+                  //     border: OutlineInputBorder(),
+                  //     contentPadding: EdgeInsets.zero,
+                  //   ),
+                  // ),
+                  const SizedBox(height: 25),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: GridView.count(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                      children: [
+                        for (var item in listFunc)
+                          InkWell(
+                            onTap: () {
+                              onItemPressed(item, _interstitialAd);
+                            },
+                            child: Column(
+                              children: [
+                                Flexible(
+                                  child: Hero(
+                                    tag: item.key,
+                                    child: Stack(
+                                      children: [
+                                        Image.asset(
+                                          item.icon,
+                                          fit: BoxFit.contain,
+                                        ),
+                                        if (item.newFeature)
+                                          Positioned(
+                                            right: 0,
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 3,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: const Text(
+                                                'new',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const VSpace(space: 6),
+                                SizedBox(
+                                  height: 34,
+                                  child: Text(
+                                    item.title,
+                                    maxLines: 2,
+                                    textScaleFactor: 0.9,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     // IconButton(
+                  //     //   onPressed: () {
+                  //     //     CoreRouter.showBottomSheet(
+                  //     //       builder: (context) {
+                  //     //         return const BottomSheetMenu();
+                  //     //       },
+                  //     //     );
+                  //     //   },
+                  //     //   icon: const Icon(Icons.menu),
+                  //     // ),
+                  //     IconButton(
+                  //       onPressed: () {
+                  //         CoreRouter.showBottomSheet(
+                  //           builder: (context) {
+                  //             return const BottomSheetSettings();
+                  //           },
+                  //         );
+                  //       },
+                  //       icon: const Icon(Icons.settings),
+                  //     ),
+                  //   ],
+                  // ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -169,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void onItemPressed(FunctionModel item) {
+  void onItemPressed(FunctionModel item, dynamic interstitialAd) {
     if (AppConfigs.enableAds) {
       count--;
 
@@ -181,15 +222,21 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
 
-    CoreRouter.push(item.widget(item));
+    if (item.key == 'wheel') {
+      CoreRouter.push(item.widget(item, interstitialAd));
+    } else {
+      CoreRouter.push(item.widget(item));
+    }
   }
 
   final listFunc = [
     FunctionModel(
       key: 'wheel',
-      title: 'Random',
+      title: 'Random Wheel',
       icon: 'assets/images/wheel.png',
-      widget: (item) => WheelFunc(item: item),
+      widget: (item, interstitialAd) =>
+          WheelFunc(item: item, interstitialAd: interstitialAd),
+      newFeature: true,
     ),
     FunctionModel(
       key: 'qr',
