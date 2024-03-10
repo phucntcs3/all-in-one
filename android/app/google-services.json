@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "204819123013",
-    "project_id": "dark-smile-414412",
-    "storage_bucket": "dark-smile-414412.appspot.com"
+    "project_number": "910395599274",
+    "project_id": "all-in-one-27b43",
+    "storage_bucket": "all-in-one-27b43.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:204819123013:android:3711382ca30242e3a7cc2c",
+        "mobilesdk_app_id": "1:910395599274:android:bf010b3ce7cc4102ee63d3",
         "android_client_info": {
           "package_name": "com.phuc.aio"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "204819123013-9lvdkv2ohb37cgvmliqqlqna61sgm3nb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCtL2lX4BUv1n3OxO2MTU7cIN5T4EdAv0I"
+          "current_key": "AIzaSyBXkeuXUITUsHsJYW5n8IfL3o1fL5pWLH4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "204819123013-9lvdkv2ohb37cgvmliqqlqna61sgm3nb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

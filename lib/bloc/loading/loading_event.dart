@@ -22,3 +22,30 @@ class LoadingChanged extends LoadingEvent {
   @override
   List<Object> get props => [value];
 }
+
+class LoadingAppIOS extends LoadingEvent {
+  const LoadingAppIOS(this.value);
+
+  final Map<String, dynamic> value;
+
+  @override
+  List<Object> get props => [value];
+}
+
+class LoadingModalUpdate extends LoadingEvent {
+  const LoadingModalUpdate(this.value);
+
+  final bool value;
+
+  @override
+  List<Object> get props => [value];
+}
+
+class LoadingModalDailyBonus extends LoadingEvent {
+  const LoadingModalDailyBonus(this.value);
+
+  final bool value;
+
+  @override
+  List<Object> get props => [value];
+}

@@ -1,4 +1,4 @@
 class AppConfigs {
   static const bool enableAds = true;
-  static const bool isTest = false;
+  static const bool isTest = true;
 }
