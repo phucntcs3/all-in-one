@@ -1,6 +1,7 @@
 import 'package:aio_mobile/configs/ad_configs.dart';
 import 'package:aio_mobile/configs/app_configs.dart';
 import 'package:aio_mobile/functions/age_func.dart';
+import 'package:aio_mobile/functions/ai/analysis_image_filter_func.dart';
 import 'package:aio_mobile/functions/info_func.dart';
 import 'package:aio_mobile/functions/length_func.dart';
 import 'package:aio_mobile/functions/qr_func/index.dart';
@@ -230,6 +231,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final listFunc = [
+    FunctionModel(
+      key: 'qr',
+      title: 'AI Camera filters',
+      icon: 'assets/images/qr.png',
+      widget: (item) => AnalysisImageFilterFunc(item: item),
+    ),
     FunctionModel(
       key: 'wheel',
       title: 'Random Wheel',

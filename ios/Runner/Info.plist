@@ -8,6 +8,10 @@
 	<string>This app needs camera access to scan QR codes</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Our application needs permission to save photos</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To enable microphone access when recording video</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To enable GPS location access for Exif data</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
