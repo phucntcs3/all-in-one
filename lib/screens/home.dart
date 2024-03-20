@@ -232,9 +232,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final listFunc = [
     FunctionModel(
-      key: 'qr',
+      key: 'aif',
       title: 'AI Camera filters',
-      icon: 'assets/images/qr.png',
+      icon: 'assets/images/aif.png',
       widget: (item) => AnalysisImageFilterFunc(item: item),
     ),
     FunctionModel(

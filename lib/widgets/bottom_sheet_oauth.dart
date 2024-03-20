@@ -2,7 +2,6 @@ import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/router/core_router.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../utils/debug.dart';
 

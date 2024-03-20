@@ -60,6 +60,7 @@ class ModalUpdate extends StatelessWidget {
                     const VSpace(),
                     const Text(
                       'To use this app, download the latest version',
+                      textAlign: TextAlign.center,
                     ),
                     const VSpace(space: 20),
                     GestureDetector(
