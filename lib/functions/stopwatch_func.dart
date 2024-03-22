@@ -175,15 +175,18 @@ class _StopWatchFuncState extends State<StopWatchFunc> {
                     Flexible(
                       fit: FlexFit.tight,
                       child: Container(
-                        height: AppSize.inputHeight,
+                        height: AppSize.inputHeight + (isMobile ? 0 : 10),
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: FilledButton(
                           onPressed: () {
                             setState(() {});
                             _stopWatchTimer.onStartTimer();
                           },
-                          child: const Text(
+                          child: Text(
                             'Start',
+                            style: TextStyle(
+                              fontSize: isMobile ? 14 : 18,
+                            ),
                           ),
                         ),
                       ),
@@ -192,7 +195,7 @@ class _StopWatchFuncState extends State<StopWatchFunc> {
                     Flexible(
                       fit: FlexFit.tight,
                       child: Container(
-                        height: AppSize.inputHeight,
+                        height: AppSize.inputHeight + (isMobile ? 0 : 10),
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: FilledButton(
                           style: FilledButton.styleFrom(
@@ -202,8 +205,11 @@ class _StopWatchFuncState extends State<StopWatchFunc> {
                             setState(() {});
                             _stopWatchTimer.onStopTimer();
                           },
-                          child: const Text(
+                          child: Text(
                             'Stop',
+                            style: TextStyle(
+                              fontSize: isMobile ? 14 : 18,
+                            ),
                           ),
                         ),
                       ),
@@ -212,15 +218,18 @@ class _StopWatchFuncState extends State<StopWatchFunc> {
                     Flexible(
                       fit: FlexFit.tight,
                       child: Container(
-                        height: AppSize.inputHeight,
+                        height: AppSize.inputHeight + (isMobile ? 0 : 10),
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: FilledButton(
                           style: FilledButton.styleFrom(
                             backgroundColor: Colors.orange,
                           ),
                           onPressed: _stopWatchTimer.onResetTimer,
-                          child: const Text(
+                          child: Text(
                             'Reset',
+                            style: TextStyle(
+                              fontSize: isMobile ? 14 : 18,
+                            ),
                           ),
                         ),
                       ),

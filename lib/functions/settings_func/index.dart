@@ -1,7 +1,9 @@
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/functions/settings_func/wake_lock.dart';
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:aio_mobile/router/core_router.dart';
 import 'package:aio_mobile/widgets/header.dart';
+import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:flutter/material.dart';
 
 class SettingsFunc extends StatefulWidget {
@@ -26,10 +28,17 @@ class _SettingsFuncState extends State<SettingsFunc> {
           child: Column(
             children: [
               Header(item: widget.item),
+              VSpace(space: isMobile ? 10 : 15),
               for (var item in listFunc)
                 ListTile(
                   tileColor: Colors.grey.shade200,
-                  title: Text(item.title),
+                  title: Text(
+                    item.title,
+                    style: TextStyle(
+                      fontSize: isMobile ? 14 : 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onTap: () {
                     CoreRouter.push(item.widget(item));
                   },

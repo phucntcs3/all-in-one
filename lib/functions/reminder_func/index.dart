@@ -1,4 +1,5 @@
 import 'package:aio_mobile/constants/app_color.dart';
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/extensions/date_ext.dart';
 import 'package:aio_mobile/extensions/duration_ext.dart';
 import 'package:aio_mobile/functions/reminder_func/add_reminder.dart';
@@ -133,16 +134,27 @@ Widget _buildItem(ReminderData item, Function()? onItemPressed) {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(item.title),
+              Text(
+                item.title,
+                style: TextStyle(
+                  fontSize: isMobile ? 14 : 20,
+                ),
+              ),
               const VSpace(space: 5),
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.timer,
                     color: AppColor.iconGray,
+                    size: isMobile ? null : 30,
                   ),
                   const SizedBox(width: 5),
-                  Text('${item.date.toddMMyyyy()} ${item.time.toHHmm()}'),
+                  Text(
+                    '${item.date.toddMMyyyy()} ${item.time.toHHmm()}',
+                    style: TextStyle(
+                      fontSize: isMobile ? 14 : 20,
+                    ),
+                  ),
                 ],
               ),
               // const VSpace(space: 5),
@@ -159,9 +171,10 @@ Widget _buildItem(ReminderData item, Function()? onItemPressed) {
               // ),
             ],
           ),
-          const Icon(
+          Icon(
             Icons.notifications,
             color: AppColor.iconGray,
+            size: isMobile ? null : 45,
           ),
         ],
       ),

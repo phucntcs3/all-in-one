@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:aio_mobile/widgets/body.dart';
 import 'package:collection/collection.dart';
@@ -59,9 +60,10 @@ class _WheelFuncState extends State<WheelFunc> {
                 child: Text(
                   name,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    fontSize: isMobile ? 14 : 20,
                   ),
                 ),
               ),
@@ -136,7 +138,10 @@ class _WheelFuncState extends State<WheelFunc> {
         }
       },
       keyboardType: TextInputType.multiline,
-      maxLines: 7,
+      style: TextStyle(
+        fontSize: isMobile ? 14 : 20,
+      ),
+      maxLines: isMobile ? 7 : 13,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         hintText: 'Enter at least 2 names...',
@@ -151,8 +156,8 @@ class _WheelFuncState extends State<WheelFunc> {
         IgnorePointer(
           child: Center(
             child: SizedBox(
-              width: 250,
-              height: 250,
+              width: isMobile ? 250 : 400,
+              height: isMobile ? 250 : 400,
               child: FortuneWheel(
                 selected: controller.stream,
                 animateFirst: false,
@@ -167,13 +172,13 @@ class _WheelFuncState extends State<WheelFunc> {
                 onFocusItemChanged: (value) {
                   this.value = value;
                 },
-                indicators: const [
+                indicators: [
                   FortuneIndicator(
                     alignment: Alignment.topCenter,
                     child: TriangleIndicator(
                       color: Colors.black,
-                      width: 10.0,
-                      height: 10.0,
+                      width: isMobile ? 10.0 : 25,
+                      height: isMobile ? 10.0 : 25,
                       elevation: 0,
                     ),
                   ),

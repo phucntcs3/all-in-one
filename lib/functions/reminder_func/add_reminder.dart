@@ -1,3 +1,4 @@
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/extensions/date_ext.dart';
 import 'package:aio_mobile/extensions/duration_ext.dart';
 import 'package:aio_mobile/functions/reminder_func/reminder_data_model.dart';
@@ -48,12 +49,15 @@ class _AddReminderState extends State<AddReminder> {
               TextField(
                 controller: titleController,
                 onChanged: (value) {},
-                decoration: const InputDecoration(
+                style: TextStyle(
+                  fontSize: isMobile ? 14 : 18,
+                ),
+                decoration: InputDecoration(
                   hintText: 'Title...',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   contentPadding: EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
+                    horizontal: isMobile ? 15 : 20,
+                    vertical: isMobile ? 10 : 20,
                   ),
                 ),
               ),
@@ -63,26 +67,55 @@ class _AddReminderState extends State<AddReminder> {
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
                 onChanged: (value) {},
-                decoration: const InputDecoration(
+                style: TextStyle(
+                  fontSize: isMobile ? 14 : 18,
+                ),
+                decoration: InputDecoration(
                   hintText: 'Description...',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   contentPadding: EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
+                    horizontal: isMobile ? 15 : 20,
+                    vertical: isMobile ? 10 : 20,
                   ),
                 ),
               ),
               const VSpace(),
               ListTile(
-                title: const Text('Date'),
-                subtitle: Text(currentDate.toddMMyyyy()),
-                leading: const Icon(Icons.date_range),
+                title: Text(
+                  'Date',
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 20,
+                  ),
+                ),
+                subtitle: Text(
+                  currentDate.toddMMyyyy(),
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 20,
+                  ),
+                ),
+                leading: Icon(
+                  Icons.date_range,
+                  size: isMobile ? null : 30,
+                ),
                 onTap: onDatePressed,
               ),
               ListTile(
-                title: const Text('Time'),
-                subtitle: Text(currentTime.toHHmm()),
-                leading: const Icon(Icons.timer),
+                title: Text(
+                  'Time',
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 20,
+                  ),
+                ),
+                subtitle: Text(
+                  currentTime.toHHmm(),
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 20,
+                  ),
+                ),
+                leading: Icon(
+                  Icons.timer,
+                  size: isMobile ? null : 30,
+                ),
                 onTap: onTimePressed,
               ),
               // ListTile(
@@ -335,18 +368,19 @@ Widget _buildHeader({
               onPressed: () {
                 CoreRouter.pop(false);
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.chevron_left,
                 color: AppColor.iconGray,
+                size: isMobile ? null : 30,
               ),
             ),
             Row(
-              children: const [
+              children: [
                 Text(
                   'Add reminder',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: isMobile ? 16 : 25,
                   ),
                 ),
               ],
@@ -359,18 +393,20 @@ Widget _buildHeader({
               onPressed: () async {
                 await onDelete?.call();
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.delete,
                 color: Colors.grey,
+                size: isMobile ? null : 40,
               ),
             ),
             IconButton(
               onPressed: () async {
                 await onDone?.call();
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.check,
                 color: Colors.green,
+                size: isMobile ? null : 40,
               ),
             ),
           ],

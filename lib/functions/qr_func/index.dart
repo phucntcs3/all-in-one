@@ -1,3 +1,4 @@
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/functions/qr_func/generate_qr.dart';
 import 'package:aio_mobile/functions/qr_func/scan_qr.dart';
 import 'package:aio_mobile/models/function_model.dart';
@@ -28,17 +29,30 @@ class _QrFuncState extends State<QrFunc> {
           child: Column(
             children: [
               Header(item: widget.item),
+              VSpace(space: isMobile ? 0 : 15),
               ListTile(
                 tileColor: Colors.grey.shade200,
-                title: const Text('Scan QR'),
+                title: Text(
+                  'Scan QR',
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 onTap: () {
                   CoreRouter.push(ScanQr(item: widget.item));
                 },
               ),
-              const VSpace(),
+              VSpace(space: isMobile ? 10 : 15),
               ListTile(
                 tileColor: Colors.grey.shade200,
-                title: const Text('Generate QR'),
+                title: Text(
+                  'Generate QR',
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 onTap: () {
                   CoreRouter.push(GenerateQr(item: widget.item));
                 },

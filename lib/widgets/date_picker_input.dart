@@ -56,7 +56,7 @@ class DatePickerInput extends StatelessWidget {
         );
       },
       child: Container(
-        height: AppSize.inputHeight,
+        height: AppSize.inputHeight + (isMobile ? 0 : 30),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.grey),
@@ -65,9 +65,24 @@ class DatePickerInput extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(getDay()),
-            Text(getMonth()),
-            Text(getYear()),
+            Text(
+              getDay(),
+              style: TextStyle(
+                fontSize: isMobile ? 14 : 18,
+              ),
+            ),
+            Text(
+              getMonth(),
+              style: TextStyle(
+                fontSize: isMobile ? 14 : 18,
+              ),
+            ),
+            Text(
+              getYear(),
+              style: TextStyle(
+                fontSize: isMobile ? 14 : 18,
+              ),
+            ),
           ],
         ),
       ),

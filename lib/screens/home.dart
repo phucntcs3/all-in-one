@@ -1,5 +1,6 @@
 import 'package:aio_mobile/configs/ad_configs.dart';
 import 'package:aio_mobile/configs/app_configs.dart';
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/functions/age_func.dart';
 import 'package:aio_mobile/functions/ai/analysis_image_filter_func.dart';
 import 'package:aio_mobile/functions/info_func.dart';
@@ -76,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Hero(
                                     tag: item.key,
                                     child: Stack(
+                                      clipBehavior: Clip.none,
                                       children: [
                                         Image.asset(
                                           item.icon,
@@ -94,11 +96,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: const Text(
-                                                'new',
+                                              child: Text(
+                                                'NEW',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 10,
+                                                  fontSize: isMobile ? 10 : 20,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -117,9 +119,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     textScaleFactor: 0.9,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
+                                      fontSize: isMobile ? 14 : 20,
                                     ),
                                   ),
                                 ),
@@ -236,6 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'AI Camera filters',
       icon: 'assets/images/aif.png',
       widget: (item) => AnalysisImageFilterFunc(item: item),
+      newFeature: true,
     ),
     FunctionModel(
       key: 'wheel',
@@ -329,5 +333,11 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: 'assets/images/calculator.png',
       widget: (item) => CalculatorFunc(item: item),
     ),
-  ];
+  ].where((element) {
+    if (!isMobile) {
+      return element.key != 'calculator';
+    }
+
+    return true;
+  });
 }

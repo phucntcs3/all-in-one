@@ -41,12 +41,12 @@ class _InputNumberState extends State<InputNumber> {
     return Row(
       children: [
         SizedBox(
-          width: 100,
+          width: isMobile ? 100 : 150,
           child: Text(
             widget.title,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16.0,
+              fontSize: isMobile ? 16.0 : 22,
             ),
           ),
         ),
@@ -54,7 +54,7 @@ class _InputNumberState extends State<InputNumber> {
         Flexible(
           fit: FlexFit.tight,
           child: SizedBox(
-            height: AppSize.inputHeight,
+            // height: AppSize.inputHeight + (isMobile ? 0 : 30),
             child: TextField(
               controller: controller,
               focusNode: focusNode,
@@ -66,15 +66,17 @@ class _InputNumberState extends State<InputNumber> {
               onTapOutside: (_) {
                 focusNode.unfocus();
               },
+              style: TextStyle(fontSize: isMobile ? 14 : 18),
               decoration: InputDecoration(
                 hintText: widget.placeholder,
                 border: const OutlineInputBorder(),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 10, vertical: isMobile ? 0.0 : 20),
                 suffixIcon: controller.text.isNotEmpty
                     ? IconButton(
                         padding: EdgeInsets.zero,
                         icon: const Icon(Icons.clear),
-                        iconSize: 20,
+                        iconSize: isMobile ? 20 : 30,
                         onPressed: () {
                           setState(() {
                             controller.clear();

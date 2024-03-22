@@ -1,3 +1,4 @@
+import 'package:aio_mobile/constants/app_size.dart';
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class Header extends StatelessWidget {
                 Hero(
                   tag: item.key,
                   child: SizedBox.square(
-                    dimension: 50,
+                    dimension: isMobile ? 50 : 80,
                     child: Image.asset(
                       item.icon,
                       fit: BoxFit.contain,
@@ -53,7 +54,7 @@ class Header extends StatelessWidget {
                 item.title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: isMobile ? 16 : 25,
                   color: isDarkMode ? Colors.white : Colors.black,
                 ),
               ),
@@ -67,6 +68,7 @@ class Header extends StatelessWidget {
               icon: Icon(
                 Icons.close,
                 color: isDarkMode ? Colors.white : Colors.black,
+                size: isMobile ? null : 50,
               ),
             ),
         ],
