@@ -14,6 +14,7 @@ import 'package:aio_mobile/functions/time_func.dart';
 import 'package:aio_mobile/functions/tip_func.dart';
 import 'package:aio_mobile/functions/volume_func.dart';
 import 'package:aio_mobile/functions/wheel_func.dart';
+import 'package:aio_mobile/functions/wifi_func.dart';
 import 'package:aio_mobile/models/function_model.dart';
 import 'package:aio_mobile/router/core_router.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
@@ -85,7 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         if (item.newFeature)
                                           Positioned(
-                                            right: 0,
+                                            top: -10,
+                                            right: -10,
                                             child: Container(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -235,11 +237,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final listFunc = [
     FunctionModel(
+      key: 'network',
+      title: 'Network Speed',
+      icon: 'assets/images/network.png',
+      widget: (item) => WifiFunc(item: item),
+      newFeature: true,
+    ),
+    FunctionModel(
       key: 'aif',
       title: 'AI Camera filters',
       icon: 'assets/images/aif.png',
       widget: (item) => AnalysisImageFilterFunc(item: item),
-      newFeature: true,
     ),
     FunctionModel(
       key: 'wheel',
@@ -247,7 +255,6 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: 'assets/images/wheel.png',
       widget: (item, interstitialAd) =>
           WheelFunc(item: item, interstitialAd: interstitialAd),
-      newFeature: true,
     ),
     FunctionModel(
       key: 'qr',

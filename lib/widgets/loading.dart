@@ -1,4 +1,5 @@
 import 'package:aio_mobile/bloc/loading/loading_bloc.dart';
+import 'package:aio_mobile/configs/app_configs.dart';
 import 'package:aio_mobile/widgets/v_space.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,12 @@ class _LoadingState extends State<Loading> {
   Future<void> setupRemoteConfig() async {
     final remoteConfig = FirebaseRemoteConfig.instance;
 
-    await remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: const Duration(seconds: 10),
-    ));
+    if (AppConfigs.isTest) {
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(seconds: 10),
+      ));
+    }
 
     await remoteConfig.setDefaults(const {
       "ios_latest_version": "1.0.0",
@@ -87,10 +90,10 @@ class _LoadingState extends State<Loading> {
             color: Colors.white.withOpacity(0),
             child: Container(
               color: Colors.black.withOpacity(0.6),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   CircularProgressIndicator(
                     color: Colors.white,
                   ),

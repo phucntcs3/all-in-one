@@ -1,4 +1,5 @@
 import 'package:aio_mobile/bloc/bloc_provider.dart';
+import 'package:aio_mobile/configs/app_configs.dart';
 import 'package:aio_mobile/widgets/banner_ad.dart';
 import 'package:aio_mobile/widgets/modal_update.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _AppState extends State<App> {
                     return const Loading();
                   }
 
-                  if (state.openModalUpdate) {
+                  if (state.openModalUpdate && !AppConfigs.isTest) {
                     return ModalUpdate(
                       iosLink: state.iosLink,
                     );
